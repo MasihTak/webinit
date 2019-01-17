@@ -1,0 +1,33 @@
+{
+  "name": "@masihtak/webinit",
+  "version": "0.1.0",
+  "description": "Initialize the scaffolding of a web project.",
+  "keywords": [
+    "init",
+    "cli",
+    "web"
+  ],
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "webinit": "./app.js"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/masihtak/webinit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/masihtak/webinit/issues"
+  },
+  "author": "MasihTak <masihtak@outlook.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/masihtak/webinit#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "clear": "^0.1.0",
+    "figlet": "^1.2.1",
+    "inquirer": "^6.2.1"
+  }
+}
