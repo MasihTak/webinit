@@ -5,11 +5,11 @@
 const clear = require('clear');
 const chalk = require('chalk');
 const figlet = require('figlet');
-const fs = require("fs");
-const path = require("path");
-const url = require("url");
+const fs = require('fs');
+const path = require('path');
+const url = require('url');
 const inquirer = require('inquirer');
-const util = require("util");
+const util = require('util');
 
 const write = util.promisify(fs.writeFile);
 const mkdir = util.promisify(fs.mkdir);
@@ -29,16 +29,16 @@ function setProjectRoot(root){
   if(root instanceof url.URL){
     rootDir = root;
   }
-  else if(path.normalize(root).startsWith(__dirname)){
+  else if(path.normalize(root).startsWith(process.cwd())){
     rootDir = url.pathToFileURL(root);
   }
   else{
-    rootDir = url.pathToFileURL(path.join(__dirname, root));
+    rootDir = url.pathToFileURL(path.join(process.cwd(), root));
   }
   assetsDir = url.appendPathToFileURL("assets", rootDir);
 }
 
-setProjectRoot(__dirname);
+setProjectRoot(process.cwd());
 
 const jQuery = {
   v1: new url.URL("https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"),
