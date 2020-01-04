@@ -9,7 +9,7 @@
 </p>
 <br>
 
-This creates the basic structure of a static website for you. It will create assets folder as well as a blank CSS file, JavaScript file, and an `index.html` with a basic setup, configured how you choose, including CSS Frameworks and some CSS Libraries, as well as jQuery.
+This generates the basic structure of a static website for you. It will create assets folder as well as a blank CSS file, JavaScript file, and an `index.html` with a basic setup, configured how you choose, including CSS Frameworks and some CSS Libraries, as well as jQuery. It also address the [subresource integrity](https://w3c.github.io/webappsec-subresource-integrity/) which is a standard that mitigates this by ensuring that an exact representation of a resource, and only that representation, loads and executes. 
 
 ```
 Projectroot:.

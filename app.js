@@ -41,13 +41,19 @@ function setProjectRoot(root){
 setProjectRoot(process.cwd());
 
 const jQuery = {
-  v1: new url.URL("https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"),
-  v2: new url.URL("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
-  v3: new url.URL("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+  v1: { link: new url.URL("https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"),
+        hash: "sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+      },
+  v2: { link: new url.URL("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
+        hash: "sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"
+      },
+  v3: { link: new url.URL("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"),
+        hash: "sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
+      }
 };
 
 class CSSStuff{
-  constructor(name, cssURL, jsURL){
+  constructor({name, cssURL, cssHash, jsURL, jsHash}){
     function toURL(link){
       if(link instanceof url.URL){
         return link;
@@ -62,7 +68,9 @@ class CSSStuff{
 
     this.name = name;
     this.css = toURL(cssURL);
+    this.cssHash = cssHash;
     this.js = toURL(jsURL);
+    this.jsHash = jsHash;
   }
 
   static [Symbol.hasInstance](obj){
@@ -72,31 +80,43 @@ class CSSStuff{
 
 
 const possibleCSSFrameworks = [
-  new CSSStuff(
-    "Normalize",
-    "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-  ),
-  new CSSStuff(
-    "Bootstrap",
-    "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"
-  ),
-  new CSSStuff(
-    "Foundation",
-    "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.1/css/foundation.min.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.1/js/foundation.min.js"
-  )
+  new CSSStuff({
+    name: "Normalize",
+    cssURL: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css",
+    cssHash: "sha384-9Z9AuAj0Xi0z7WFOSgjjow8EnNY9wPNp925TVLlAyWhvZPsf5Ks23Ex0mxIrWJzJ"
+  }),
+  new CSSStuff({
+    name: "Bootstrap",
+    cssURL: "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css",
+    cssHash: "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh",
+    jsURL: "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js",
+    jsHash: "sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+  }),
+  new CSSStuff({
+    name: "Foundation",
+    cssURL: "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.6.1/css/foundation.min.css",
+    cssHash: "sha384-Bu0ub28kcl6HYTYOztakXlHnFhxLf10qnQMFk/g5oZwiD8eZSJrUNMB7mrGE84CZ",
+    jsURL: "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.6.1/js/foundation.min.js",
+    jsHash: "sha384-46eXV2Ed7LP2gkns6dBJ6ad4omSsK+vm5LFatoAxiUQmuC7xQqrL5cv2cwR5YNKX"
+  })
 ];
 
 const possibleCSSLibraries = [
-  new CSSStuff(
-    "Font-Awesome",
-    "https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-  ),
-  new CSSStuff(
-    "Animate",
-    "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
-  )
+  new CSSStuff({
+    name: "Font-Awesome",
+    cssURL: "https://use.fontawesome.com/releases/v5.11.2/css/all.css",
+    cssHash: "sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN"
+  }),
+  new CSSStuff({
+    name: "Ionicons",
+    cssURL: "https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css",
+    cssHash: "sha384-JCf+anPNwYp5BqNmVMsMjKdnOVw97S9+Nvk/aFibMIN2xxHQxFrtgk4selJXjrQe"
+  }),
+  new CSSStuff({
+    name: "Animate",
+    cssURL: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css",
+    cssHash: "sha384-7/Tl0k65OTvDSvtuq7aPR7aa0aCz7ZKqHsbMRLxhzueldW+9MZpCe9LB1c5UBuNS"
+  })
 ];
 
 
@@ -160,7 +180,7 @@ async function createDirectories() {
 }
 
 
-async function createHTMLFile(name, framework, libraries, jQueryLink) {
+async function createHTMLFile(name, framework, libraries, jQuery) {
   if (fs.existsSync(url.appendPathToFileURL('index.html', rootDir))) {
     console.log(
       chalk.yellow('index.html already exists!')
@@ -172,12 +192,12 @@ async function createHTMLFile(name, framework, libraries, jQueryLink) {
   <meta charset="utf-8">
   <title>${name}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="${framework.css.href}">`;
+  <link rel="stylesheet" href="${framework.css.href}" integrity="${framework.cssHash}" crossorigin="anonymous">`;
 
   if(Array.isArray(libraries)) {
     for(const lib of libraries){
       if(lib instanceof CSSStuff){
-        content += `\n  <link rel="stylesheet" href="${lib.css.href}">`;
+          content += `\n  <link rel="stylesheet" href="${lib.css.href}" integrity="${lib.cssHash}" crossorigin="anonymous">`;
       }
     }
   }
@@ -190,11 +210,11 @@ content +=`
 
   </div>`;
 
-    if(jQueryLink instanceof url.URL){
-      content += `\n  <script type="text/javascript" src="${jQueryLink.href}"></script>`;
+    if(jQuery.link instanceof url.URL){
+      content += `\n  <script type="text/javascript" src="${jQuery.link.href}" integrity="${jQuery.hash}" crossorigin="anonymous"></script>`;
     }
     if(framework.js) {
-      content += `\n  <script type="text/javascript" src="${framework.js.href}"></script>`;
+      content += `\n  <script type="text/javascript" src="${framework.js.href}" integrity="${framework.jsHash}" crossorigin="anonymous"></script>`;
     }
 
     content +=`
