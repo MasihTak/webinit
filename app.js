@@ -180,7 +180,7 @@ async function createDirectories() {
 }
 
 
-async function createHTMLFile(name, framework, libraries, jQuery) {
+async function createHTMLFile(name, description, framework, libraries, jQuery) {
   if (fs.existsSync(url.appendPathToFileURL('index.html', rootDir))) {
     console.log(
       chalk.yellow('index.html already exists!')
@@ -189,9 +189,13 @@ async function createHTMLFile(name, framework, libraries, jQuery) {
     let content = `<!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Primary Meta Tags -->
   <meta charset="utf-8">
   <title>${name}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="${description}">
+
+  <!-- ============== Resources style ============== -->
   <link rel="stylesheet" href="${framework.css.href}" integrity="${framework.cssHash}" crossorigin="anonymous">`;
 
   if(Array.isArray(libraries)) {
@@ -208,7 +212,9 @@ content +=`
 <body>
   <div class="container">
 
-  </div>`;
+
+  </div>
+  <!-- ============== Scripts ============== -->`;
 
     if(jQuery.link instanceof url.URL){
       content += `\n  <script type="text/javascript" src="${jQuery.link.href}" integrity="${jQuery.hash}" crossorigin="anonymous"></script>`;
@@ -269,6 +275,19 @@ const projectQuestion = {
       }
     };
 
+const projectDescription = {
+      name: 'siteDescription',
+      type: 'input',
+      message: 'What is the site description?',
+      validate: function(value) {
+        if (value.length) {
+          return true;
+        } else {
+          return 'Please enter a description for your project.';
+        }
+      }
+    };
+
 const CSSFrameworks = {
       name: 'cssFramework',
       type: 'list',
@@ -297,6 +316,7 @@ const jqueryVersion = {
   const {projectName} = await inquirer.prompt(projectQuestion);
   await createDirectories();
   await createFiles();
+  const {siteDescription} = await inquirer.prompt(projectDescription);
   const {cssFramework} = await inquirer.prompt(CSSFrameworks);
   const {cssLibraries} = await inquirer.prompt(CSSLibraries);
   const {jQueryVer} = await inquirer.prompt(jqueryVersion);
@@ -307,5 +327,5 @@ const jqueryVersion = {
     libraryNames.push(cssLibrary);
   }
 
-  await createHTMLFile(projectName, possibleCSSFrameworks.find((element) => element.name === cssFramework), libraryNames.map((name) => possibleCSSLibraries.find((lib) => lib.name == name)), jQuery[jQueryVer]);
+  await createHTMLFile(projectName, siteDescription, possibleCSSFrameworks.find((element) => element.name === cssFramework), libraryNames.map((name) => possibleCSSLibraries.find((lib) => lib.name == name)), jQuery[jQueryVer]);
 })();
