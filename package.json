@@ -15,8 +15,8 @@
     "webinit": "./app.js"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/masihtak/webinit.git"
+    "type": "git",
+    "url": "https://github.com/masihtak/webinit.git"
   },
   "bugs": {
     "url": "https://github.com/masihtak/webinit/issues"
@@ -28,6 +28,6 @@
     "chalk": "^3.0.0",
     "clear": "^0.1.0",
     "figlet": "^1.2.4",
-    "inquirer": "^6.2.1"
+    "inquirer": "^8.1.0"
   }
 }
