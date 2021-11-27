@@ -25,7 +25,7 @@
   "license": "MIT",
   "homepage": "https://github.com/masihtak/webinit#readme",
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "clear": "^0.1.0",
     "figlet": "^1.2.4",
     "inquirer": "^8.1.2"
